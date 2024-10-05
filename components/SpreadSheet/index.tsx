@@ -2,9 +2,10 @@
 import { createRange } from "@/utils/array";
 import { solveLetterHeader } from "./utils";
 import { Cell } from "../Cell";
-
-const INITIAL_COLUMNS = 100;
-const INITIAL_ROWS = 100;
+import {
+  INITIAL_COLUMNS,
+  INITIAL_ROWS,
+} from "@/hooks/useSpreadSheet/SpreadSheetContext/constants";
 
 export function SpreadSheet() {
   return (
@@ -27,9 +28,16 @@ export function SpreadSheet() {
             <tr key={idx}>
               <td className="border border-white">{idx + 1}</td>
               {createRange(INITIAL_COLUMNS).map((_, cIdx) => {
+                const position = {
+                  x: idx,
+                  y: cIdx,
+                };
                 return (
-                  <td className="border border-white min-w-28" key={cIdx}>
-                    <Cell />
+                  <td
+                    className="border border-white min-w-28"
+                    key={`${position.x}-${position.y}`}
+                  >
+                    <Cell position={position} />
                   </td>
                 );
               })}
